@@ -1,7 +1,7 @@
 <nav class="bg-white border-t flex justify-around py-2 fixed bottom-0 inset-x-0 z-40">
 
     <!-- Home -->
-    <a href="{{ route('parent.dashboard') }}"
+    <a wire:navigate href="{{ route('parent.dashboard') }}"
         class="flex flex-col items-center gap-1
               {{ request()->routeIs('parent.dashboard') ? 'text-indigo-600' : 'text-gray-500 hover:text-indigo-600' }}">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -11,7 +11,7 @@
         <span class="text-xs">Home</span>
     </a>
 
-    <a href="{{ route('parent.notifications') }}"
+    <a wire:navigate href="{{ route('parent.notifications') }}"
         class="relative flex flex-col items-center gap-1
               {{ request()->routeIs('parent.notifications*') ? 'text-indigo-600' : 'text-gray-500 hover:text-indigo-600' }}">
 
@@ -30,7 +30,7 @@
 
 
     <!-- Profile -->
-    <a href="{{ route('parent.profile') }}"
+    <a wire:navigate href="{{ route('parent.profile') }}"
         class="flex flex-col items-center gap-1
               {{ request()->routeIs('parent.profile*') ? 'text-indigo-600' : 'text-gray-500 hover:text-indigo-600' }}">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

@@ -101,7 +101,7 @@ new class extends Component {
     <!-- Full Page Loader -->
     <div wire:teleport="body">
         <div wire:loading wire:target="selectStudent,selectedDate"
-            class="fixed inset-0 z-[9999] bg-white/80 backdrop-blur-sm pointer-events-auto">
+            class="fixed inset-0 z-[100000] bg-white/80 backdrop-blur-sm pointer-events-auto">
 
             <!-- TRUE CENTER (safe-area proof) -->
             <div
@@ -143,7 +143,7 @@ new class extends Component {
                         👨‍👩‍👧 Your Children(s)
                     </h2>
                     <p class="text-sm text-gray-500 mt-1">
-                        Tap a student to view today’s updates
+                        Tap a student to view today’s homeworks
                     </p>
                 </div>
 

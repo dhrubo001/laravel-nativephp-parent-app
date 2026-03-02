@@ -23,8 +23,6 @@
 
 <body class="nativephp-safe-area">
 
-
-
     @yield('content')
 
 
@@ -67,7 +65,34 @@
     @livewireScripts
 
 
+    <script>
+        document.addEventListener('livewire:init', () => {
 
+
+            /* ------------------------------
+             | Web Notification setup
+             |------------------------------ */
+
+            // Ask permission only once
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+
+            Livewire.on('web-notification', ({
+                title,
+                body
+            }) => {
+                if (!('Notification' in window)) return;
+                if (Notification.permission !== 'granted') return;
+
+                new Notification(title, {
+                    body,
+                    icon: '', // optional
+                });
+            });
+
+        });
+    </script>
 
 </body>
 

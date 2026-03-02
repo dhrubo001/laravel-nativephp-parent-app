@@ -28,8 +28,9 @@ new class extends Component {
                 ]);
                 return;
             }
-
+            //dd($response->json());
             $this->notifications = $response->json('data.notifications') ?? [];
+            //dd($this->notifications);
             $this->visible = count($this->notifications) > 0;
 
             //  AUTO MARK AS READ (Option 2)
@@ -89,12 +90,34 @@ new class extends Component {
             @if (count($notifications))
                 <div class="space-y-3">
                     @foreach ($notifications as $notice)
-                        <div class="bg-white rounded-xl shadow p-4">
-                            <h2 class="font-semibold text-gray-800">{{ $notice['title'] }}</h2>
-                            <p class="text-sm text-gray-600 mt-1">{{ $notice['message'] }}</p>
+                        <div
+                            class="
+                rounded-xl shadow p-4 transition
+                {{ !$notice['is_read'] ? 'bg-indigo-50 border-l-4 border-indigo-600' : 'bg-white' }}
+            ">
+                            <div class="flex items-start justify-between gap-2">
+                                <h2 class="font-semibold text-gray-800">
+                                    {{ $notice['title'] }}
+                                </h2>
+
+                                {{-- Unread badge --}}
+                                @if (!$notice['is_read'])
+                                    <span
+                                        class="shrink-0 text-[10px] px-2 py-0.5
+                               rounded-full bg-indigo-600 text-white font-semibold">
+                                        NEW
+                                    </span>
+                                @endif
+                            </div>
+
+                            <p class="text-sm text-gray-600 mt-1">
+                                {{ $notice['message'] }}
+                            </p>
+
                             <p class="text-xs text-gray-400 mt-2">
-                                {{ date('M-d-Y', strtotime($notice['created_at'])) }}
-                                {{ \Carbon\Carbon::parse($notice['created_at'])->diffForHumans() }}</p>
+                                {{ \Carbon\Carbon::parse($notice['created_at'])->format('M d, Y') }}
+                                · {{ \Carbon\Carbon::parse($notice['created_at'])->diffForHumans() }}
+                            </p>
                         </div>
                     @endforeach
                 </div>
