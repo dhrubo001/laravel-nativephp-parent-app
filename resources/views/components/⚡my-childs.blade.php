@@ -164,6 +164,7 @@ new class extends Component {
                 <div class="space-y-3">
                     @foreach ($students as $student)
                         <div wire:click="selectStudent({{ $student['id'] }}, '{{ $student['name'] }}')"
+                            wire:key="student-{{ $student['id'] }}"
                             class="flex items-center justify-between
                            rounded-2xl border
                            bg-white px-4 py-4

@@ -112,7 +112,7 @@ new class extends Component {
         </div>
 
 
-        <button wire:click="logout" wire:loading.attr="disabled" wire:target="logout"
+        <button wire:key='logout' wire:click="logout" wire:loading.attr="disabled" wire:target="logout"
             class="text-sm bg-white text-indigo-600 px-3 py-1.5 rounded-md font-medium
                        hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed">
             Logout

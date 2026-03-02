@@ -83,12 +83,13 @@ new class extends Component {
             <div class="grid grid-cols-3 gap-4">
 
                 <!-- Homework -->
-                <div class="bg-white rounded-xl shadow p-4 text-center">
+                <a wire:navigate href="{{ route('parent.select-childs') }}"
+                    class="bg-white rounded-xl shadow p-4 text-center">
                     <p class="text-xs text-gray-500">Today's Homework</p>
                     <p class="text-2xl font-bold text-gray-800">
                         {{ $homeworkCount }}
                     </p>
-                </div>
+                </a>
 
                 <!-- Notifications -->
                 <a class="bg-white rounded-xl shadow p-4 text-center cursor-pointer" wire:navigate
