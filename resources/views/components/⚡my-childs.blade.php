@@ -11,7 +11,6 @@ new class extends Component {
     public $selectedStudentName = '';
     public $notifications = [];
     public string $selectedDate = '';
-    public bool $loadingNotifications = false;
 
     // MUST be public in Livewire
     public string $apiBaseUrl = '';
@@ -54,16 +53,16 @@ new class extends Component {
         $this->loadNotifications();
     }
 
-    public function updatedSelectedDate($value)
-    {
-        if (!$this->selectedStudentId) {
-            $this->toast('Please select a student first.', 'warning');
-            $this->selectedDate = now()->format('Y-m-d');
-            return;
-        }
+    // public function updatedSelectedDate($value)
+    // {
+    //     if (!$this->selectedStudentId) {
+    //         $this->toast('Please select a student first.', 'warning');
+    //         $this->selectedDate = now()->format('Y-m-d');
+    //         return;
+    //     }
 
-        $this->loadNotifications();
-    }
+    //     $this->loadNotifications();
+    // }
 
     public function loadNotifications()
     {
@@ -96,11 +95,11 @@ new class extends Component {
 
 ?>
 
-<div>
+<div wire:key="parent-select-childs-page">
 
     <!-- Full Page Loader -->
     <div wire:teleport="body">
-        <div wire:loading wire:target="selectStudent,selectedDate"
+        <div wire:loading wire:target="selectStudent,loadNotifications"
             class="fixed inset-0 z-[100000] bg-white/80 backdrop-blur-sm pointer-events-auto">
 
             <!-- TRUE CENTER (safe-area proof) -->
@@ -149,8 +148,8 @@ new class extends Component {
 
                 <!-- Right: Date Picker -->
                 <div class="shrink-0">
-                    <input type="date" @disabled(!$selectedStudentId) wire:model.live="selectedDate"
-                        max="{{ now()->format('Y-m-d') }}"
+                    <input type="date" @disabled(!$selectedStudentId) wire:model.defer="selectedDate"
+                        wire:change="loadNotifications" max="{{ now()->format('Y-m-d') }}"
                         class="rounded-xl border border-gray-300 px-3 py-2 text-sm" />
                 </div>
 
@@ -158,7 +157,7 @@ new class extends Component {
 
             @if (empty($students))
                 <div class="text-gray-500 text-sm">
-                    No students linked to your account.
+                    No students linked to your account, contact your school admin
                 </div>
             @else
                 <div class="space-y-3">

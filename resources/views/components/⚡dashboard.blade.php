@@ -57,10 +57,21 @@ new class extends Component {
         } finally {
         }
     }
+
+    public function goToMyChilds()
+    {
+        return $this->redirectRoute('parent.select-childs');
+    }
+
+    public function goToNotifications()
+    {
+        return $this->redirectRoute('parent.notifications');
+    }
 };
 ?>
 
 <div class="relative">
+
 
 
     <!-- 📱 Main App -->
@@ -83,33 +94,31 @@ new class extends Component {
             <div class="grid grid-cols-3 gap-4">
 
                 <!-- Homework -->
-                <a wire:navigate href="{{ route('parent.select-childs') }}"
-                    class="bg-white rounded-xl shadow p-4 text-center">
+                <div class="bg-white rounded-xl shadow p-4 text-center cursor-pointer" wire:click="goToMyChilds">
                     <p class="text-xs text-gray-500">Today's Homework</p>
                     <p class="text-2xl font-bold text-gray-800">
                         {{ $homeworkCount }}
                     </p>
-                </a>
+                </div>
 
                 <!-- Notifications -->
-                <a class="bg-white rounded-xl shadow p-4 text-center cursor-pointer" wire:navigate
-                    href="{{ route('parent.notifications') }}">
+                <div class="bg-white rounded-xl shadow p-4 text-center cursor-pointer" wire:click="goToNotifications">
                     <p class="text-xs text-gray-500">Today's Notifications</p>
                     <p class="text-2xl font-bold text-gray-800">
                         {{ $notificationCount }}
                     </p>
-                </a>
+                </div>
 
                 <!-- Students -->
-                <a class="bg-white rounded-xl shadow p-4 text-center cursor-pointer
+                <div class="bg-white rounded-xl shadow p-4 text-center cursor-pointer
                hover:bg-indigo-50 transition"
-                    wire:navigate href="{{ route('parent.select-childs') }}">
+                    wire:click="goToMyChilds">
 
                     <p class="text-xs text-gray-500">Your Students</p>
                     <p class="text-2xl font-bold text-gray-800">
                         {{ $studentCount }}
                     </p>
-                </a>
+                </div>
 
             </div>
 
@@ -128,8 +137,8 @@ new class extends Component {
                     </div>
 
                     <div class="bg-white rounded-xl shadow divide-y mb-5">
-                        <a wire:navigate href="{{ route('parent.select-childs') }}"
-                            class="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-50">
+                        <button wire:click="goToMyChilds"
+                            class="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-50 cursor-pointer">
                             <div
                                 class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600">
                                 👩‍🏫
@@ -139,11 +148,11 @@ new class extends Component {
                                 <p class="font-medium text-gray-800">View Homeworks</p>
                                 <p class="text-xs text-gray-500">Check your child's homeworks</p>
                             </div>
-                        </a>
+                        </button>
                     </div>
 
                     <div class="bg-white rounded-xl shadow divide-y">
-                        <a wire:navigate href="{{ route('parent.notifications') }}"
+                        <button wire:click="goToNotifications"
                             class="w-full flex items-center gap-3 px-4 py-4 hover:bg-gray-50">
                             <div
                                 class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100 text-blue-600">
@@ -154,7 +163,7 @@ new class extends Component {
                                 <p class="font-medium text-gray-800">View Notifications</p>
                                 <p class="text-xs text-gray-500">Latest updates and notices</p>
                             </div>
-                        </a>
+                        </button>
                     </div>
                 </div>
 

@@ -4,7 +4,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Benchmark;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', [LoginController::class, 'getLogin'])->name('parent.login');
@@ -12,8 +12,11 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware(['web', 'parent.auth'])->group(function () {
+    // Benchmark::dd(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('parent.dashboard');
+
+
 
     Route::get('/select-childs', [DashboardController::class, 'selectChilds'])
         ->name('parent.select-childs');
@@ -25,4 +28,5 @@ Route::middleware(['web', 'parent.auth'])->group(function () {
 
     Route::get('/notifications', [DashboardController::class, 'getNotifications'])
         ->name('parent.notifications');
+    //});
 });
