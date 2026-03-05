@@ -80,7 +80,7 @@ new class extends Component {
             }
 
             $this->notifications = $response->json('data.homeworks', []);
-            //dd($this->notifications);
+            // dd($this->notifications);
         } catch (\Throwable $e) {
             report($e);
             $this->toast('Something went wrong. Please try again.');
@@ -211,15 +211,28 @@ new class extends Component {
                 @else
                     <div class="space-y-3">
                         @foreach ($notifications as $notification)
+                            @php
+                                $isHomework = ($notification['type'] ?? 0) == 0;
+
+                                $accentColor = $isHomework ? 'bg-green-500' : 'bg-blue-500';
+                                $badgeColor = $isHomework ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700';
+
+                                $typeLabel = $isHomework ? 'Homework' : 'Classwork';
+                            @endphp
+
+
                             <div class="relative rounded-xl bg-white p-4 shadow-sm border border-gray-200">
 
                                 <!-- Left accent bar -->
-                                <span class="absolute left-0 top-0 h-full w-1 rounded-l-xl bg-blue-500"></span>
+                                <span class="absolute left-0 top-0 h-full w-1 rounded-l-xl {{ $accentColor }}"></span>
 
-                                <div class="pl-3">
+                                <div class="pl-3 space-y-2">
 
-                                    <div class="mt-2 text-sm text-gray-600 leading-relaxed">
-                                        <div class="flex flex-wrap items-center gap-x-2">
+                                    <!-- Header -->
+                                    <div class="flex items-center justify-between">
+
+                                        <div class="flex flex-wrap items-center gap-x-2 text-sm text-gray-600">
+
                                             <span class="font-medium text-gray-800">
                                                 {{ $notification['subject']['subject_name'] ?? 'Subject Not Found' }}
                                             </span>
@@ -230,29 +243,44 @@ new class extends Component {
                                                 Period {{ $notification['period']['period_number'] ?? '-' }}
                                             </span>
 
-                                            <span>
-                                                <b>{{ $notification['teacher']['name'] ?? '' }}</b>
+                                            <span class="text-gray-400">•</span>
+
+                                            <span class="font-medium text-gray-700">
+                                                {{ $notification['teacher']['name'] ?? '' }}
                                             </span>
+
                                         </div>
 
-                                        <div class="text-xs text-gray-500 mt-1">
-                                            {{ $notification['period']['start_time'] ?? '--:--' }}
-                                            –
-                                            {{ $notification['period']['end_time'] ?? '--:--' }}
-                                        </div>
+                                        <!-- Homework/Classwork Badge -->
+                                        <span class="text-xs font-medium px-2 py-1 rounded-full {{ $badgeColor }}">
+                                            {{ $typeLabel }}
+                                        </span>
+
                                     </div>
 
-                                    <div class="font-medium text-gray-900">
+
+                                    <!-- Time -->
+                                    <div class="text-xs text-gray-500">
+                                        {{ $notification['period']['start_time'] ?? '--:--' }}
+                                        –
+                                        {{ $notification['period']['end_time'] ?? '--:--' }}
+                                    </div>
+
+
+                                    <!-- Description -->
+                                    <div class="text-sm font-medium text-gray-900 leading-relaxed">
                                         {{ $notification['homework'] ?? 'Notification' }}
                                     </div>
 
 
+                                    <!-- Date -->
+                                    @if (!empty($notification['due_date']))
+                                        <div class="text-xs text-gray-400">
+                                            {{ \Carbon\Carbon::parse($notification['due_date'])->format('F j, Y') }}
+                                        </div>
+                                    @endif
 
-                                    <div class="text-xs text-gray-400 mt-2">
-                                        {{ date('F j, Y', strtotime($notification['due_date'])) ?? '' }}
-                                    </div>
                                 </div>
-
                             </div>
                         @endforeach
                     </div>

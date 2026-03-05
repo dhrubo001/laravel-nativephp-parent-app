@@ -21,6 +21,8 @@ new class extends Component {
     {
         $this->validate();
 
+        $device = device_info();
+
         try {
             $response = Http::asJson()
                 ->acceptJson()
@@ -29,6 +31,9 @@ new class extends Component {
                     'email' => $this->email,
                     'password' => (string) $this->password,
                     'role' => 'parent',
+                    'device_name' => $device['device'],
+                    'platform' => $device['platform'],
+                    'device_type' => $device['is_mobile'] ? 'mobile' : ($device['is_tablet'] ? 'tablet' : 'desktop'),
                 ]);
 
             if ($response->failed()) {
