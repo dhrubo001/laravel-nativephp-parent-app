@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +27,4 @@ Route::middleware(['web', 'parent.auth'])->group(function () {
 
     Route::get('/notifications', [DashboardController::class, 'getNotifications'])
         ->name('parent.notifications');
-    //});
 });

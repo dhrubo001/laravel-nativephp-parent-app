@@ -1,4 +1,6 @@
-<nav class="bg-white border-t flex justify-around py-2 fixed bottom-0 inset-x-0 z-40">
+<nav
+    class="bg-white border-t flex justify-around py-2 fixed bottom-0 inset-x-0 z-40
+           pb-[env(safe-area-inset-bottom)]">
 
     <!-- Home -->
     <a href="{{ route('parent.dashboard') }}"

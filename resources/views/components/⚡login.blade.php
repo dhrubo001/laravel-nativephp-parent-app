@@ -2,7 +2,6 @@
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Http;
-use Native\Laravel\Facades\SecureStorage;
 use App\Support\AuthStorage;
 
 new class extends Component {
